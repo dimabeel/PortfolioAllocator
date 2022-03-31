@@ -19,7 +19,7 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Property(e => e.Surname)
             .HasMaxLength(surnameLength)
             .IsRequired();
-        builder.HasKey(e => new {e.Name, e.Surname}).HasName("Name_Surname_Key");
+        builder.HasAlternateKey(e => new {e.Name, e.Surname}).HasName("Name_Surname_Key");
 
         builder.HasMany(e => e.Accounts).WithOne();
     }
