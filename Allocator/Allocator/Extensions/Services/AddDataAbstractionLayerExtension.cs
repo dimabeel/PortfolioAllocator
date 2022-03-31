@@ -1,4 +1,6 @@
 ﻿using Allocator.API.DAL.Context;
+using Allocator.API.DAL.Repositories;
+using Allocator.API.DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace Allocator.API.Extensions.Services;
@@ -20,5 +22,8 @@ public static class AddDataAbstractionLayerExtension
                     b.CommandTimeout(TimeoutInS);
                 });
         });
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
     }
 }
