@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 #pragma warning disable CS8618
-namespace Allocator.API.DTO.Stock;
+
+namespace Allocator.API.DTO.StockHistoryRow;
 
 // ReSharper disable once InconsistentNaming
-public class CreateStockDTO
+public class GetStockHistoryRowDTO
 {
     [Required]
     public int UserId { get; set; }
@@ -13,7 +15,8 @@ public class CreateStockDTO
     public int AccountId { get; set; }
 
     [Required]
-    [MinLength(2)]
-    [MaxLength(100)]
-    public string Company { get; set; }
+    public  int StockId { get; set; }
+
+    [Required]
+    public int StockRowId { get; set; }
 }

@@ -5,18 +5,11 @@ using System.ComponentModel.DataAnnotations;
 namespace Allocator.API.DTO.Account;
 
 // ReSharper disable once InconsistentNaming
-public class CreateAccountDTO
+public class GetAccountDTO
 {
     [Required]
     public int UserId { get; set; }
 
     [Required]
-    [MinLength(3)]
-    [MaxLength(100)]
-    public string Title { get; set; }
-
-    [Required]
-    [MinLength(3)]
-    [MaxLength(3)]
-    public string Currency { get; set; }
+    public int AccountId { get; set; }
 }

@@ -11,14 +11,14 @@ public class AllocatorContext : DbContext
     public DbSet<User>? Users { get; set; }
     public DbSet<Account>? Accounts { get; set; }
     public DbSet<Stock>? Stocks { get; set; }
-    public  DbSet<StockRow>? StockRows { get; set; }
+    public  DbSet<StockHistoryRow>? StockHistoryRows { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
         modelBuilder.ApplyConfiguration(new AccountEntityConfiguration());
         modelBuilder.ApplyConfiguration(new StockEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new StockRowEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new StockHistoryRowEntityConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }

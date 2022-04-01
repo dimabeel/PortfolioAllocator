@@ -8,7 +8,10 @@ namespace Allocator.API.DTO.Account;
 public class AccountDTO
 {
     [Required]
-    public int Id { get; set; }
+    public  int UserId { get; set; }
+
+    [Required]
+    public int AccountId { get; set; }
 
     [Required]
     [MinLength(3)]

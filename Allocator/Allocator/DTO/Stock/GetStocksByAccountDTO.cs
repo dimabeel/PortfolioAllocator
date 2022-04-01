@@ -4,16 +4,11 @@
 namespace Allocator.API.DTO.Stock;
 
 // ReSharper disable once InconsistentNaming
-public class CreateStockDTO
+public class GetStocksByAccountDTO
 {
     [Required]
     public int UserId { get; set; }
 
     [Required]
     public int AccountId { get; set; }
-
-    [Required]
-    [MinLength(2)]
-    [MaxLength(100)]
-    public string Company { get; set; }
 }

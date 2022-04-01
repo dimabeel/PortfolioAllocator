@@ -1,6 +1,6 @@
 ﻿namespace Allocator.API.Models;
 
-public class StockRow
+public class StockHistoryRow
 {
     public int Id { get; set; }
     public double Input { get; set; }

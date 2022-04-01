@@ -12,7 +12,7 @@ public sealed class UnitOfWork : IUnitOfWork
         IGenericRepository<Account> accounts,
         IGenericRepository<User> users,
         IGenericRepository<Stock> stocks,
-        IGenericRepository<StockRow> stockHistories)
+        IGenericRepository<StockHistoryRow> stockHistories)
     {
         _context = context;
         Accounts = accounts;
@@ -24,7 +24,7 @@ public sealed class UnitOfWork : IUnitOfWork
     public IGenericRepository<Account> Accounts { get; init; }
     public IGenericRepository<User> Users { get; init; }
     public IGenericRepository<Stock> Stocks { get; init; }
-    public IGenericRepository<StockRow> StockHistories { get; init; }
+    public IGenericRepository<StockHistoryRow> StockHistories { get; init; }
 
     public void Dispose()
     {

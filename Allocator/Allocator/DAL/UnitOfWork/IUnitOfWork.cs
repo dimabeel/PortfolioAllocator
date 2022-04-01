@@ -8,7 +8,7 @@ public interface IUnitOfWork : IDisposable
     IGenericRepository<Account> Accounts { get; }
     IGenericRepository<User> Users { get; }
     IGenericRepository<Stock> Stocks { get; }
-    IGenericRepository<StockRow> StockHistories { get; }
+    IGenericRepository<StockHistoryRow> StockHistories { get; }
 
     Task<bool> SaveChangesAsync();
 }

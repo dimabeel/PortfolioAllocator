@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Allocator.API.DAL.Context.Configuration;
 
-public class StockRowEntityConfiguration : IEntityTypeConfiguration<StockRow>
+public class StockHistoryRowEntityConfiguration : IEntityTypeConfiguration<StockHistoryRow>
 {
-    public void Configure(EntityTypeBuilder<StockRow> builder)
+    public void Configure(EntityTypeBuilder<StockHistoryRow> builder)
     {
         const int doublePrecision = 2;
 
