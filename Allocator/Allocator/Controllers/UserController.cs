@@ -1,4 +1,6 @@
 using Allocator.API.DTO.User;
+using Allocator.API.Exceptions;
+using Allocator.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Allocator.API.Controllers;
@@ -8,12 +10,13 @@ namespace Allocator.API.Controllers;
 [Produces("application/json")]
 public class UserController : ControllerBase
 {
+    //private readonly ILogger<UserController> _logger;
+    private readonly IUserService _userService;
 
-    private readonly ILogger<UserController> _logger;
-
-    public UserController(ILogger<UserController> logger)
+    public UserController(IUserService userService /*ILogger<UserController> logger*/)
     {
-        _logger = logger;
+        _userService = userService;
+        //_logger = logger;
     }
 
     [Route("all")]

@@ -1,4 +1,5 @@
 using Allocator.API.DTO.Stock;
+using Allocator.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Allocator.API.Controllers;
@@ -8,12 +9,13 @@ namespace Allocator.API.Controllers;
 [Produces("application/json")]
 public class StockController : ControllerBase
 {
+    //private readonly ILogger<StockController> _logger;
+    private readonly IStockService _stockService;
 
-    private readonly ILogger<StockController> _logger;
-
-    public StockController(ILogger<StockController> logger)
+    public StockController(IStockService stockService /*ILogger<StockController> logger*/)
     {
-        _logger = logger;
+        _stockService = stockService;
+        //_logger = logger;
     }
 
     [Route("by-account")]

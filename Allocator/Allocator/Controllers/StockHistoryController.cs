@@ -1,4 +1,5 @@
 using Allocator.API.DTO.StockHistoryRow;
+using Allocator.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Allocator.API.Controllers;
@@ -8,12 +9,14 @@ namespace Allocator.API.Controllers;
 [Produces("application/json")]
 public class StockHistoryController : ControllerBase
 {
+    //private readonly ILogger<StockHistoryController> _logger;
+    private readonly IStockHistoryRowService _stockHistoryRowService;
 
-    private readonly ILogger<StockHistoryController> _logger;
-
-    public StockHistoryController(ILogger<StockHistoryController> logger)
+    public StockHistoryController(IStockHistoryRowService stockHistoryRowService
+        /*ILogger<StockHistoryController> logger*/)
     {
-        _logger = logger;
+        _stockHistoryRowService = stockHistoryRowService;
+        //_logger = logger;
     }
 
     [Route("by-stock")]

@@ -1,4 +1,5 @@
 using Allocator.API.DTO.Account;
+using Allocator.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Allocator.API.Controllers;
@@ -8,12 +9,13 @@ namespace Allocator.API.Controllers;
 [Produces("application/json")]
 public class AccountController : ControllerBase
 {
+    //private readonly ILogger<AccountController> _logger;
+    private readonly IAccountService _accountService;
 
-    private readonly ILogger<AccountController> _logger;
-
-    public AccountController(ILogger<AccountController> logger)
+    public AccountController(IAccountService accountService /*ILogger<AccountController> logger*/)
     {
-        _logger = logger;
+        _accountService = accountService;
+        //_logger = logger;
     }
 
     [Route("by-user")]

@@ -1,20 +1,18 @@
 ﻿using Allocator.API.DAL.Context;
-using Allocator.API.DAL.Repositories;
-using Allocator.API.DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace Allocator.API.Extensions.Services;
 
-public static class AddDataAbstractionLayerExtension
+public static class AddDbContextExtension
 {
     private const int RetryCount = 5;
     private const int TimeoutInS = 10;
 
-    public static void AddDataAbstractionLayer(this IServiceCollection services, ConfigurationManager configurationManager)
+    public static void AddDbContext(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<AllocatorContext>(options =>
         {
-            options.UseSqlServer(configurationManager.GetConnectionString("DbConnection"),
+            options.UseSqlServer(connectionString,
                 b =>
                 {
                     b.MigrationsAssembly((typeof(AllocatorContext).Assembly.FullName));
@@ -22,8 +20,5 @@ public static class AddDataAbstractionLayerExtension
                     b.CommandTimeout(TimeoutInS);
                 });
         });
-
-        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-        services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
     }
 }

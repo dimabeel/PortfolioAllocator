@@ -15,11 +15,7 @@ public class AllocatorContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new AccountEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new StockEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new StockHistoryRowEntityConfiguration());
-
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AllocatorContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }
