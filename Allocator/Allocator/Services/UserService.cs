@@ -19,10 +19,10 @@ public class UserService : IUserService
         return _unitOfWork.Users.GetAll();
     }
 
-    public async Task<User> GetBy(int userId)
+    public async Task<User> GetBy(int id)
     {
-        var user = await _unitOfWork.Users.GetById(userId);
-        if (user.Id == 0) throw new HttpResponseException(404, userId); //Replace to UserNotFoundException;
+        var user = await _unitOfWork.Users.GetById(id);
+        if (user.Id == 0) throw new UserNotFoundException();
 
         return user;
     }
@@ -30,7 +30,7 @@ public class UserService : IUserService
     public async Task<User> Update(User userForUpdate)
     {
         var user = await _unitOfWork.Users.GetById(userForUpdate.Id);
-        if (user.Id == 0) throw new HttpResponseException(404, userForUpdate); //Replace to UserNotFoundException;
+        if (user.Id == 0) throw new UserNotFoundException();
 
         user.Name = userForUpdate.Name;
         user.Surname = userForUpdate.Surname;
@@ -43,7 +43,7 @@ public class UserService : IUserService
     public async Task Remove(int id)
     {
         var user = await _unitOfWork.Users.GetById(id);
-        if (user.Id == 0) throw new HttpResponseException(404, id); //Replace to UserNotFoundException;
+        if (user.Id == 0) throw new UserNotFoundException();
 
         _unitOfWork.Users.Remove(user);
         await _unitOfWork.SaveChangesAsync();

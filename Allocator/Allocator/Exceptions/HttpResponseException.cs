@@ -1,8 +1,8 @@
 ﻿namespace Allocator.API.Exceptions;
 
-public class HttpResponseException : Exception
+public abstract class HttpResponseException : Exception
 {
-    public HttpResponseException(int statusCode, object? value = null) =>
+    protected HttpResponseException(int statusCode, object? value = null) =>
         (StatusCode, Value) = (statusCode, value);
 
     public int StatusCode { get; }
