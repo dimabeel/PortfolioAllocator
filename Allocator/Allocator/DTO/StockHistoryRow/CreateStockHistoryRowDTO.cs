@@ -9,12 +9,6 @@ namespace Allocator.API.DTO.StockHistoryRow;
 public class CreateStockHistoryRowDTO
 {
     [Required]
-    public int UserId { get; set; }
-
-    [Required]
-    public int AccountId { get; set; }
-
-    [Required]
     public int StockId { get; set; }
 
     [Required]

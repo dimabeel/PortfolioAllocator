@@ -17,6 +17,6 @@ public class StockEntityConfiguration : IEntityTypeConfiguration<Stock>
             .IsRequired();
         builder.HasIndex(e => e.Company);
 
-        builder.HasMany(e => e.StockHistory).WithOne();
+        builder.HasMany(e => e.StockHistory).WithOne(x => x.Stock);
     }
 }

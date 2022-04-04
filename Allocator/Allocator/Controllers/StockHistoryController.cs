@@ -19,15 +19,15 @@ public class StockHistoryController : ControllerBase
         //_logger = logger;
     }
 
-    [Route("by-stock")]
+    [Route("stocks-history")]
     [HttpGet]
-    public IEnumerable<StockHistoryRowDTO> GetAll(GetStockHistoryRowsByStockDTO request)
+    public ActionResult<IEnumerable<StockHistoryRowDTO>> GetAll()
     {
         throw new NotImplementedException();
     }
 
     [HttpGet]
-    public ActionResult<StockHistoryRowDTO> Get(GetStockHistoryRowDTO request)
+    public ActionResult<StockHistoryRowDTO> Get(int id)
     {
         throw new NotImplementedException();
     }
@@ -46,7 +46,7 @@ public class StockHistoryController : ControllerBase
     }
 
     [HttpDelete]
-    public ActionResult Delete(GetStockHistoryRowDTO request)
+    public ActionResult Delete(int id)
     {
         throw new NotImplementedException();
     }

@@ -18,15 +18,15 @@ public class StockController : ControllerBase
         //_logger = logger;
     }
 
-    [Route("by-account")]
+    [Route("/stocks")]
     [HttpGet]
-    public IEnumerable<StockDTO> GetAll(GetStocksByAccountDTO request)
+    public ActionResult<IEnumerable<StockDTO>> GetAll()
     {
         throw new NotImplementedException();
     }
 
     [HttpGet]
-    public ActionResult<StockDTO> Get(GetStockDTO request)
+    public ActionResult<StockDTO> Get(int id)
     {
         throw new NotImplementedException();
     }
@@ -45,7 +45,7 @@ public class StockController : ControllerBase
     }
 
     [HttpDelete]
-    public ActionResult Delete(GetStockDTO request)
+    public ActionResult Delete(int id)
     {
         throw new NotImplementedException();
     }

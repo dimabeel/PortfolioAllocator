@@ -1,4 +1,5 @@
-﻿namespace Allocator.API.Models;
+﻿#pragma warning disable CS8618
+namespace Allocator.API.Models;
 
 public class Account
 {
@@ -6,4 +7,6 @@ public class Account
     public string Title { get; set; } = nameof(Title);
     public string Currency { get; set; } = nameof(Currency);
     public IList<Stock> Stocks { get; set; } = new List<Stock>();
+
+    public User User { get; set; }
 }

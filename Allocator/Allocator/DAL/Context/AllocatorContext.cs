@@ -1,5 +1,4 @@
-﻿using Allocator.API.DAL.Context.Configuration;
-using Allocator.API.Models;
+﻿using Allocator.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Allocator.API.DAL.Context;

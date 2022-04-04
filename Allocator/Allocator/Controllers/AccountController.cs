@@ -18,15 +18,15 @@ public class AccountController : ControllerBase
         //_logger = logger;
     }
 
-    [Route("by-user")]
+    [Route("/accounts")]
     [HttpGet]
-    public IEnumerable<AccountDTO> GetAll(int userId)
+    public ActionResult<IEnumerable<AccountDTO>> GetAll()
     {
         throw new NotImplementedException();
     }
 
     [HttpGet]
-    public ActionResult<AccountDTO> Get(GetAccountDTO request)
+    public ActionResult<AccountDTO> Get(int id)
     {
         throw new NotImplementedException();
     }
@@ -45,7 +45,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpDelete]
-    public ActionResult Delete(GetAccountDTO request)
+    public ActionResult Delete(int id)
     {
         throw new NotImplementedException();
     }

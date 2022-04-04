@@ -21,6 +21,6 @@ public class AccountEntityConfiguration : IEntityTypeConfiguration<Account>
             .IsRequired();
         builder.HasIndex(e => e.Title);
 
-        builder.HasMany(e => e.Stocks).WithOne();
+        builder.HasMany(e => e.Stocks).WithOne(x => x.Account);
     }
 }

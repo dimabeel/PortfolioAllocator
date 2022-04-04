@@ -1,6 +1,7 @@
 using Allocator.API.DTO.User;
-using Allocator.API.Exceptions;
+using Allocator.API.Models;
 using Allocator.API.Services.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Allocator.API.Controllers;
@@ -12,42 +13,53 @@ public class UserController : ControllerBase
 {
     //private readonly ILogger<UserController> _logger;
     private readonly IUserService _userService;
+    private readonly IMapper _mapper;
 
-    public UserController(IUserService userService /*ILogger<UserController> logger*/)
+    public UserController(IUserService userService, IMapper mapper /*ILogger<UserController> logger*/)
     {
         _userService = userService;
+        _mapper = mapper;
         //_logger = logger;
     }
 
-    [Route("all")]
+    [Route("/users")]
     [HttpGet]
-    public IEnumerable<UserDTO> GetAll()
+    public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll()
     {
-        throw new NotImplementedException();
+        var users = await _userService.GetAll();
+        var usersDto = _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
+        return Ok(usersDto);
     }
 
-    [HttpGet(Name = "{id}:int:min(1)")]
-    public ActionResult<UserDTO> Get(int id)
+    [HttpGet(Name = "{id}:int")]
+    public async Task<ActionResult<UserDTO>> Get(int id)
     {
-        throw new NotImplementedException();
+        var user = await _userService.GetBy(id);
+        var userDto = _mapper.Map<User, UserDTO>(user);
+        return Ok(userDto);
     }
 
     [HttpPost]
-    public ActionResult<UserDTO> Create(CreateUserDTO request)
+    public async Task<ActionResult<UserDTO>> Create(CreateUserDTO createUserDto)
     {
-        //Redirect to get user with created Id.
-        throw new NotImplementedException();
+        var user = _mapper.Map<CreateUserDTO, User>(createUserDto);
+        var createdUser = await _userService.Create(user);
+        return CreatedAtAction(nameof(Get), new {id = createdUser.Id}, createdUser);
     }
 
-    [HttpPut]
-    public ActionResult<UserDTO> Update(UserDTO user)
+    [HttpPatch]
+    public async Task<ActionResult<UserDTO>> Update(UserDTO userDto)
     {
-        throw new NotImplementedException();
+        var user = _mapper.Map<UserDTO, User>(userDto);
+        var updatedUser = await _userService.Update(user);
+        var updatedUserDto = _mapper.Map<User, UserDTO>(updatedUser);
+        return Ok(updatedUserDto);
     }
 
-    [HttpDelete(Name = "{id}:int:min(1)")]
-    public ActionResult Delete(int id)
+    [HttpDelete(Name = "{id}:int")]
+    public async Task<ActionResult> Delete(int id)
     {
-        throw new NotImplementedException();
+        await _userService.Remove(id);
+        return NoContent();
     }
 }
