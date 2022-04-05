@@ -1,5 +1,8 @@
+using Allocator.API.DTO.Account;
 using Allocator.API.DTO.Stock;
+using Allocator.API.Models;
 using Allocator.API.Services.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Allocator.API.Controllers;
@@ -11,42 +14,62 @@ public class StockController : ControllerBase
 {
     //private readonly ILogger<StockController> _logger;
     private readonly IStockService _stockService;
+    private readonly IMapper _mapper;
 
-    public StockController(IStockService stockService /*ILogger<StockController> logger*/)
+    public StockController(IStockService stockService, IMapper mapper /*ILogger<StockController> logger*/)
     {
         _stockService = stockService;
+        _mapper = mapper;
         //_logger = logger;
     }
 
     [Route("/stocks")]
     [HttpGet]
-    public ActionResult<IEnumerable<StockDTO>> GetAll()
+    public async Task<ActionResult<IEnumerable<StockDTO>>> GetAll(int accountId)
     {
-        throw new NotImplementedException();
+        var stocks = await _stockService.GetStocks(accountId);
+        var stocksDto = _mapper.Map<IEnumerable<StockDTO>>(stocks);
+        return Ok(stocksDto);
     }
 
     [HttpGet]
-    public ActionResult<StockDTO> Get(int id)
+    public async Task<ActionResult<StockDTO>> Get(int stockId)
     {
-        throw new NotImplementedException();
+        var stock = await _stockService.GetStock(stockId);
+        var stockDto = _mapper.Map<IEnumerable<StockDTO>>(stock);
+        return Ok(stockDto);
     }
 
     [HttpPost]
-    public ActionResult<StockDTO> Create(CreateStockDTO request)
+    public async Task<ActionResult<StockDTO>> Create(CreateStockDTO createStockDto)
     {
-        //Redirect to get user with created AccountId.
-        throw new NotImplementedException();
+        var stock = _mapper.Map<Stock>(createStockDto);
+        var createdStock = await _stockService.Create(stock);
+        var createdStockDto = _mapper.Map<StockDTO>(createdStock);
+        return CreatedAtAction(nameof(Get), new { id = createdStockDto.StockId }, createdStockDto);
     }
 
     [HttpPut]
-    public ActionResult<StockDTO> Update(StockDTO request)
+    public async Task<ActionResult<StockDTO>> Update(StockDTO updateStockDto)
     {
-        throw new NotImplementedException();
+        var stock = _mapper.Map<Stock>(updateStockDto);
+        var updatedStock = await _stockService.Update(stock);
+        var updatedAccountDto = _mapper.Map<StockDTO>(updatedStock);
+        return Ok(updatedAccountDto);
     }
 
     [HttpDelete]
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> Delete(int stockId)
     {
-        throw new NotImplementedException();
+        await _stockService.Remove(stockId);
+        return NoContent();
+    }
+
+    [Route("/stocks")]
+    [HttpDelete]
+    public async Task<ActionResult> DeleteRange(IEnumerable<int> stockIds)
+    {
+        await _stockService.RemoveRange(stockIds);
+        return NoContent();
     }
 }

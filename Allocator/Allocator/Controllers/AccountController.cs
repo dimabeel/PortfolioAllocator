@@ -49,9 +49,9 @@ public class AccountController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult<AccountDTO>> Update(AccountDTO accountToUpdateDto)
+    public async Task<ActionResult<AccountDTO>> Update(AccountDTO updateAccountDto)
     {
-        var account = _mapper.Map<Account>(accountToUpdateDto);
+        var account = _mapper.Map<Account>(updateAccountDto);
         var updatedAccount = await _accountService.Update(account);
         var updatedAccountDto = _mapper.Map<AccountDTO>(updatedAccount);
         return Ok(updatedAccountDto);

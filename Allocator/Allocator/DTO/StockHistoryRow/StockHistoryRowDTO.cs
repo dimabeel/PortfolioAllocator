@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Allocator.API.Mapping;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 #pragma warning disable CS8618
@@ -6,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Allocator.API.DTO.StockHistoryRow;
 
 // ReSharper disable once InconsistentNaming
-public class StockHistoryRowDTO
+public class StockHistoryRowDTO : IMapWith<Models.StockHistoryRow>
 {
     [Required]
     public int StockId { get; set; }
@@ -27,4 +29,10 @@ public class StockHistoryRowDTO
     [Required]
     [Precision(2)]
     public double Output { get; set; }
+
+    public void Mapping(Profile profile)
+    {
+        profile.CreateMap<StockHistoryRowDTO, Models.StockHistoryRow>();
+        profile.CreateMap<Models.StockHistoryRow, StockHistoryRowDTO>();
+    }
 }
