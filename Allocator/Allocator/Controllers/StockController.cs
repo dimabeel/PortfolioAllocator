@@ -23,7 +23,7 @@ public class StockController : ControllerBase
         //_logger = logger;
     }
 
-    [Route("/stocks")]
+    [Route("/stocks/{accountId}:int")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<StockDTO>>> GetAll(int accountId)
     {
@@ -32,11 +32,12 @@ public class StockController : ControllerBase
         return Ok(stocksDto);
     }
 
+    [Route("{stockId}:int")]
     [HttpGet]
     public async Task<ActionResult<StockDTO>> Get(int stockId)
     {
         var stock = await _stockService.GetStock(stockId);
-        var stockDto = _mapper.Map<IEnumerable<StockDTO>>(stock);
+        var stockDto = _mapper.Map<StockDTO>(stock);
         return Ok(stockDto);
     }
 
@@ -58,6 +59,7 @@ public class StockController : ControllerBase
         return Ok(updatedAccountDto);
     }
 
+    [Route("{stockId}:int")]
     [HttpDelete]
     public async Task<ActionResult> Delete(int stockId)
     {

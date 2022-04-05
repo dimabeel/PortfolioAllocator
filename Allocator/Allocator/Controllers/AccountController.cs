@@ -22,7 +22,7 @@ public class AccountController : ControllerBase
         //_logger = logger;
     }
 
-    [Route("/accounts")]
+    [Route("/accounts/{userId}:int")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AccountDTO>>> GetAll(int userId)
     {
@@ -31,6 +31,7 @@ public class AccountController : ControllerBase
         return Ok(accountsDto);
     }
 
+    [Route("{accountId}:int")]
     [HttpGet]
     public async Task<ActionResult<AccountDTO>> Get(int accountId)
     {
@@ -57,6 +58,7 @@ public class AccountController : ControllerBase
         return Ok(updatedAccountDto);
     }
 
+    [Route("{accountId}:int")]
     [HttpDelete]
     public async Task<ActionResult> Delete(int accountId)
     {

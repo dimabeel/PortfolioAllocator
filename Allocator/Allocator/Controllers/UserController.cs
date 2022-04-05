@@ -31,7 +31,8 @@ public class UserController : ControllerBase
         return Ok(usersDto);
     }
 
-    [HttpGet(Name = "{id}:int")]
+    [Route("{id}:int")]
+    [HttpGet]
     public async Task<ActionResult<UserDTO>> Get(int id)
     {
         var user = await _userService.GetBy(id);
@@ -57,7 +58,8 @@ public class UserController : ControllerBase
         return Ok(updatedUserDto);
     }
 
-    [HttpDelete(Name = "{id}:int")]
+    [Route("{id}:int")]
+    [HttpDelete]
     public async Task<ActionResult> Delete(int id)
     {
         await _userService.Remove(id);
