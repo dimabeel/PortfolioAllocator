@@ -2,8 +2,8 @@ using System.Reflection;
 using Allocator.API.DAL.Context;
 using Allocator.API.DAL.Repositories;
 using Allocator.API.DAL.UnitOfWork;
+using Allocator.API.Extensions.Middlewares;
 using Allocator.API.Extensions.Services;
-using Allocator.API.Filters;
 using Allocator.API.Mapping;
 using Allocator.API.Services;
 using Allocator.API.Services.Interfaces;
@@ -11,10 +11,7 @@ using Allocator.API.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<HttpResponseExceptionFilter>();
-});
+builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,9 +36,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseDeveloperExceptionPage();
 }
 
+app.UseCustomExceptionMiddleware();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

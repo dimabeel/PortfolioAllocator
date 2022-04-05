@@ -1,6 +1,6 @@
 ﻿namespace Allocator.API.Exceptions;
 
-public class UserNotFoundException : HttpResponseException
+public sealed class UserNotFoundException : HttpResponseException
 {
-    public UserNotFoundException() : base(404, "User not found") { }
+    public UserNotFoundException() : base(StatusCodes.Status404NotFound, "User not found") { }
 }
