@@ -35,7 +35,7 @@ public class StockHistoryController : ControllerBase
     [HttpPost]
     public ActionResult<StockHistoryRowDTO> Create(CreateStockHistoryRowDTO request)
     {
-        //Redirect to get user with created Id.
+        //Redirect to get user with created AccountId.
         throw new NotImplementedException();
     }
 

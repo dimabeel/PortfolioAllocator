@@ -11,8 +11,8 @@ public class AccountEntityConfiguration : IEntityTypeConfiguration<Account>
         const int currencyLength = 3;
         const int titleLength = 100;
 
-        builder.HasKey(e => e.Id);
-        builder.HasIndex(e => e.Id);
+        builder.HasKey(e => e.AccountId);
+        builder.HasIndex(e => e.AccountId);
         builder.Property(e => e.Currency)
             .HasMaxLength(currencyLength)
             .IsRequired();
@@ -21,6 +21,8 @@ public class AccountEntityConfiguration : IEntityTypeConfiguration<Account>
             .IsRequired();
         builder.HasIndex(e => e.Title);
 
-        builder.HasMany(e => e.Stocks).WithOne(x => x.Account);
+        builder.HasMany(e => e.Stocks)
+            .WithOne(x => x.Account)
+            .HasForeignKey(x => x.AccountId);
     }
 }

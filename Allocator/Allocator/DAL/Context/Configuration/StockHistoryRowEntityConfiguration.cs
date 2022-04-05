@@ -10,11 +10,11 @@ public class StockHistoryRowEntityConfiguration : IEntityTypeConfiguration<Stock
     {
         const int doublePrecision = 2;
 
-        builder.HasKey(e => e.Id);
-        builder.HasIndex(e => e.Id);
+        builder.HasKey(e => e.StockHistoryRowId);
+        builder.HasIndex(e => e.StockHistoryRowId);
         builder.Property(e => e.Input).HasPrecision(doublePrecision).IsRequired();
         builder.Property(e => e.Profit).HasPrecision(doublePrecision).IsRequired();
         builder.Property(e => e.Profit).HasPrecision(doublePrecision).IsRequired();
-        builder.Property(e => e.Date).HasDefaultValue(DateTime.UtcNow).IsRequired();
+        builder.Property(e => e.Date).IsRequired();
     }
 }

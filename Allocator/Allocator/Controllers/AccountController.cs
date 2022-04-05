@@ -34,7 +34,7 @@ public class AccountController : ControllerBase
     [HttpPost]
     public ActionResult<AccountDTO> Create(CreateAccountDTO request)
     {
-        //Redirect to get user with created Id.
+        //Redirect to get user with created AccountId.
         throw new NotImplementedException();
     }
 

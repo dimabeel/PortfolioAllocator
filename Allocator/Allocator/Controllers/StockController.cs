@@ -34,7 +34,7 @@ public class StockController : ControllerBase
     [HttpPost]
     public ActionResult<StockDTO> Create(CreateStockDTO request)
     {
-        //Redirect to get user with created Id.
+        //Redirect to get user with created AccountId.
         throw new NotImplementedException();
     }
 

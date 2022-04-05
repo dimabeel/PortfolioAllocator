@@ -20,6 +20,8 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(surnameLength)
             .IsRequired();
 
-        builder.HasMany(e => e.Accounts).WithOne(x => x.User);
+        builder.HasMany(e => e.Accounts)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId);
     }
 }

@@ -10,13 +10,15 @@ public class StockEntityConfiguration : IEntityTypeConfiguration<Stock>
     {
         const int companyNameLength = 100;
 
-        builder.HasKey(e => e.Id);
-        builder.HasIndex(e => e.Id);
+        builder.HasKey(e => e.StockId);
+        builder.HasIndex(e => e.StockId);
         builder.Property(e => e.Company)
             .HasMaxLength(companyNameLength)
             .IsRequired();
         builder.HasIndex(e => e.Company);
 
-        builder.HasMany(e => e.StockHistory).WithOne(x => x.Stock);
+        builder.HasMany(e => e.StockHistory)
+            .WithOne(x => x.Stock)
+            .HasForeignKey(x => x.StockId);
     }
 }

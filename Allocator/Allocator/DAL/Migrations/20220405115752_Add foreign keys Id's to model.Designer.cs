@@ -4,6 +4,7 @@ using Allocator.API.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Allocator.API.DAL.Migrations
 {
     [DbContext(typeof(AllocatorContext))]
-    partial class AllocatorContextModelSnapshot : ModelSnapshot
+    [Migration("20220405115752_Add foreign keys Id's to model")]
+    partial class AddforeignkeysIdstomodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,7 +92,9 @@ namespace Allocator.API.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockHistoryRowId"), 1L, 1);
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 4, 5, 11, 57, 52, 887, DateTimeKind.Utc).AddTicks(374));
 
                     b.Property<double>("Input")
                         .HasPrecision(2)
