@@ -7,7 +7,7 @@ public interface IStockHistoryRowService
     public Task<IEnumerable<StockHistoryRow>> GetStockHistoryRows(int stockId);
     public Task<IEnumerable<StockHistoryRow>> GetStockHistoryRows(int stockId, DateTime from, DateTime till);
     public Task<StockHistoryRow> GetStockHistoryRow(int stockHistoryRowId);
-    public Task<StockHistoryRow> Update(StockHistoryRow stockHistoryRow);
+    public Task<StockHistoryRow> Update(StockHistoryRow stockHistoryRowToUpdate);
     public Task Remove(int stockHistoryRowId);
     public Task RemoveRange(IEnumerable<int> stockHistoryRowIds);
     public Task<StockHistoryRow> Create(StockHistoryRow stockHistoryRow);

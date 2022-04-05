@@ -9,7 +9,10 @@ namespace Allocator.API.DTO.StockHistoryRow;
 public class StockHistoryRowDTO
 {
     [Required]
-    public int StockRowId { get; set; }
+    public int StockId { get; set; }
+
+    [Required]
+    public int StockHistoryRowId { get; set; }
     
     [Required]
     [Precision(2)]

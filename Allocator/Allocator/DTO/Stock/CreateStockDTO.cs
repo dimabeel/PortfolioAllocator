@@ -7,9 +7,6 @@ namespace Allocator.API.DTO.Stock;
 public class CreateStockDTO
 {
     [Required]
-    public int UserId { get; set; }
-
-    [Required]
     public int AccountId { get; set; }
 
     [Required]

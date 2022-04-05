@@ -27,7 +27,7 @@ public class UserController : ControllerBase
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll()
     {
         var users = await _userService.GetAll();
-        var usersDto = _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
+        var usersDto = _mapper.Map<IEnumerable<UserDTO>>(users);
         return Ok(usersDto);
     }
 
@@ -35,24 +35,25 @@ public class UserController : ControllerBase
     public async Task<ActionResult<UserDTO>> Get(int id)
     {
         var user = await _userService.GetBy(id);
-        var userDto = _mapper.Map<User, UserDTO>(user);
+        var userDto = _mapper.Map<UserDTO>(user);
         return Ok(userDto);
     }
 
     [HttpPost]
     public async Task<ActionResult<UserDTO>> Create(CreateUserDTO createUserDto)
     {
-        var user = _mapper.Map<CreateUserDTO, User>(createUserDto);
+        var user = _mapper.Map<User>(createUserDto);
         var createdUser = await _userService.Create(user);
-        return CreatedAtAction(nameof(Get), new {id = createdUser.Id}, createdUser);
+        var createdUserDto = _mapper.Map<UserDTO>(createdUser);
+        return CreatedAtAction(nameof(Get), new {id = createdUserDto.Id}, createdUserDto);
     }
 
     [HttpPatch]
     public async Task<ActionResult<UserDTO>> Update(UserDTO userDto)
     {
-        var user = _mapper.Map<UserDTO, User>(userDto);
+        var user = _mapper.Map<User>(userDto);
         var updatedUser = await _userService.Update(user);
-        var updatedUserDto = _mapper.Map<User, UserDTO>(updatedUser);
+        var updatedUserDto = _mapper.Map<UserDTO>(updatedUser);
         return Ok(updatedUserDto);
     }
 

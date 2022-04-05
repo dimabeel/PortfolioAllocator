@@ -28,6 +28,9 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
 builder.Services.AddScoped(typeof(IUserService), typeof(UserService));
+builder.Services.AddScoped(typeof(IAccountService), typeof(AccountService));
+builder.Services.AddScoped(typeof(IStockService), typeof(StockService));
+builder.Services.AddScoped(typeof(IStockHistoryRowService), typeof(StockHistoryRowService));
 
 var app = builder.Build();
 app.UseHttpsRedirection();

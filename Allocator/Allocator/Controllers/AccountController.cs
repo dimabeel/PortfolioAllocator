@@ -1,5 +1,7 @@
 using Allocator.API.DTO.Account;
+using Allocator.API.Models;
 using Allocator.API.Services.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Allocator.API.Controllers;
@@ -11,42 +13,62 @@ public class AccountController : ControllerBase
 {
     //private readonly ILogger<AccountController> _logger;
     private readonly IAccountService _accountService;
+    private readonly IMapper _mapper;
 
-    public AccountController(IAccountService accountService /*ILogger<AccountController> logger*/)
+    public AccountController(IAccountService accountService, IMapper mapper /*ILogger<AccountController> logger*/)
     {
         _accountService = accountService;
+        _mapper = mapper;
         //_logger = logger;
     }
 
     [Route("/accounts")]
     [HttpGet]
-    public ActionResult<IEnumerable<AccountDTO>> GetAll()
+    public async Task<ActionResult<IEnumerable<AccountDTO>>> GetAll(int userId)
     {
-        throw new NotImplementedException();
+        var accountsByUserId = await _accountService.GetAll(userId);
+        var accountsDto = _mapper.Map<IEnumerable<AccountDTO>>(accountsByUserId);
+        return Ok(accountsDto);
     }
 
     [HttpGet]
-    public ActionResult<AccountDTO> Get(int id)
+    public async Task<ActionResult<AccountDTO>> Get(int accountId)
     {
-        throw new NotImplementedException();
+        var account = await _accountService.GetBy(accountId);
+        var accountDto = _mapper.Map<AccountDTO>(account);
+        return Ok(accountDto);
     }
 
     [HttpPost]
-    public ActionResult<AccountDTO> Create(CreateAccountDTO request)
+    public async Task<ActionResult<AccountDTO>> Create(CreateAccountDTO createAccountDto)
     {
-        //Redirect to get user with created AccountId.
-        throw new NotImplementedException();
+        var account = _mapper.Map<Account>(createAccountDto);
+        var createdAccount = await _accountService.Create(account);
+        var createdAccountDto = _mapper.Map<AccountDTO>(createdAccount);
+        return CreatedAtAction(nameof(Get), new { id = createdAccountDto.AccountId }, createdAccountDto);
     }
 
     [HttpPut]
-    public ActionResult<AccountDTO> Update(AccountDTO request)
+    public async Task<ActionResult<AccountDTO>> Update(AccountDTO accountToUpdateDto)
     {
-        throw new NotImplementedException();
+        var account = _mapper.Map<Account>(accountToUpdateDto);
+        var updatedAccount = await _accountService.Update(account);
+        var updatedAccountDto = _mapper.Map<AccountDTO>(updatedAccount);
+        return Ok(updatedAccountDto);
     }
 
     [HttpDelete]
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> Delete(int accountId)
     {
-        throw new NotImplementedException();
+        await _accountService.Remove(accountId);
+        return NoContent();
+    }
+
+    [Route("/accounts")]
+    [HttpDelete]
+    public async Task<ActionResult> DeleteRange(IEnumerable<int> accountIds)
+    {
+        await _accountService.RemoveRange(accountIds);
+        return NoContent();
     }
 }
