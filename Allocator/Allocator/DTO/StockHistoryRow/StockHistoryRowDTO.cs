@@ -17,18 +17,15 @@ public class StockHistoryRowDTO : IMapWith<Models.StockHistoryRow>
     public int StockHistoryRowId { get; set; }
     
     [Required]
-    [Precision(2)]
-    public double Input { get; set; }
+    public decimal Input { get; set; }
 
     public DateTime Date { get; set; }
 
     [Required]
-    [Precision(2)]
-    public double Profit { get; set; }
+    public decimal Profit { get; set; }
 
     [Required]
-    [Precision(2)]
-    public double Output { get; set; }
+    public decimal Output { get; set; }
 
     public void Mapping(Profile profile)
     {

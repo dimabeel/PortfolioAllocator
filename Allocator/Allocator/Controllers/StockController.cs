@@ -25,7 +25,7 @@ public class StockController : ControllerBase
 
     [Route("/stocks/{accountId}:int")]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<StockDTO>>> GetAll(int accountId)
+    public async Task<ActionResult<IEnumerable<StockDTO>>> GetByAccount(int accountId)
     {
         var stocks = await _stockService.GetStocks(accountId);
         var stocksDto = _mapper.Map<IEnumerable<StockDTO>>(stocks);
@@ -55,8 +55,8 @@ public class StockController : ControllerBase
     {
         var stock = _mapper.Map<Stock>(updateStockDto);
         var updatedStock = await _stockService.Update(stock);
-        var updatedAccountDto = _mapper.Map<StockDTO>(updatedStock);
-        return Ok(updatedAccountDto);
+        var updatedStockDto = _mapper.Map<StockDTO>(updatedStock);
+        return Ok(updatedStockDto);
     }
 
     [Route("{stockId}:int")]

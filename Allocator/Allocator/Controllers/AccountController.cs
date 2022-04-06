@@ -24,7 +24,7 @@ public class AccountController : ControllerBase
 
     [Route("/accounts/{userId}:int")]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AccountDTO>>> GetAll(int userId)
+    public async Task<ActionResult<IEnumerable<AccountDTO>>> GetByUser(int userId)
     {
         var accountsByUserId = await _accountService.GetAll(userId);
         var accountsDto = _mapper.Map<IEnumerable<AccountDTO>>(accountsByUserId);

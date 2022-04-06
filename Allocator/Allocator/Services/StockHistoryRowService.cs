@@ -22,7 +22,13 @@ public class StockHistoryRowService : IStockHistoryRowService
     public async Task<IEnumerable<StockHistoryRow>> GetStockHistoryRows(int stockId, DateTime from, DateTime till)
     {
         return await _unitOfWork.StockHistories
-            .Find(x => x.StockId == stockId && x.Date > from && x.Date < till);
+            .Find(x => x.StockId == stockId && x.Date >= from && x.Date <= till);
+    }
+
+    public async Task<IEnumerable<StockHistoryRow>> GetStockHistoryRows(IEnumerable<int> stockHistoryRowIds)
+    {
+        return await _unitOfWork.StockHistories
+            .Find(x => stockHistoryRowIds.Contains(x.StockHistoryRowId));
     }
 
     public async Task<StockHistoryRow> GetStockHistoryRow(int stockHistoryRowId)
@@ -93,7 +99,7 @@ public class StockHistoryRowService : IStockHistoryRowService
         return rows;
     }
 
-    private double CalculateOutput(double profit, double input)
+    private decimal CalculateOutput(decimal profit, decimal input)
     {
         return input * (1 + (profit / 100));
     }
