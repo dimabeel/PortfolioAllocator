@@ -41,12 +41,11 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<AccountDTO>> Create(CreateAccountDTO createAccountDto)
+    public async Task<ActionResult> Create(CreateAccountDTO createAccountDto)
     {
         var account = _mapper.Map<Account>(createAccountDto);
         var createdAccount = await _accountService.Create(account);
-        var createdAccountDto = _mapper.Map<AccountDTO>(createdAccount);
-        return CreatedAtAction(nameof(Get), new { id = createdAccountDto.AccountId }, createdAccountDto);
+        return RedirectToAction(nameof(Get), new { accountId = createdAccount.AccountId});
     }
 
     [HttpPut]

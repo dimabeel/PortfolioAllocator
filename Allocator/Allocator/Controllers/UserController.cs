@@ -41,12 +41,11 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<UserDTO>> Create(CreateUserDTO createUserDto)
+    public async Task<ActionResult> Create(CreateUserDTO createUserDto)
     {
         var user = _mapper.Map<User>(createUserDto);
         var createdUser = await _userService.Create(user);
-        var createdUserDto = _mapper.Map<UserDTO>(createdUser);
-        return CreatedAtAction(nameof(Get), new {id = createdUserDto.Id}, createdUserDto);
+        return RedirectToAction(nameof(Get), new { id =  createdUser.Id });
     }
 
     [HttpPatch]

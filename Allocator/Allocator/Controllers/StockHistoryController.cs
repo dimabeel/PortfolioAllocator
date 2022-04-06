@@ -61,23 +61,22 @@ public class StockHistoryController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<StockHistoryRowDTO>> Create(CreateStockHistoryRowDTO createStockHistoryRowDto)
+    public async Task<RedirectToActionResult> Create(CreateStockHistoryRowDTO createStockHistoryRowDto)
     {
         var stockHistoryRow = _mapper.Map<StockHistoryRow>(createStockHistoryRowDto);
         var createdStockHistoryRow = await _stockHistoryRowService.Create(stockHistoryRow);
-        var createdStockHistoryRowDto = _mapper.Map<StockHistoryRowDTO>(createdStockHistoryRow);
-        return CreatedAtAction(nameof(Get), new { stockHistoryRowId = createdStockHistoryRowDto.StockId }, createdStockHistoryRowDto);
+        return RedirectToAction(nameof(Get), new { stockHistoryRowId = createdStockHistoryRow.StockHistoryRowId});
     }
 
     [Route("/stock-histories")]
     [HttpPost]
-    public async Task<ActionResult<IEnumerable<StockHistoryRowDTO>>> CreateRange(
+    public async Task<ActionResult> CreateRange(
         IEnumerable<CreateStockHistoryRowDTO> createStockHistoryRowDtoCollection)
     {
         var stockHistoryRows = _mapper.Map<IEnumerable<StockHistoryRow>>(createStockHistoryRowDtoCollection);
         var createdStockHistoryRows = await _stockHistoryRowService.CreateRange(stockHistoryRows);
         var createdIds = createdStockHistoryRows.Select(x => x.StockHistoryRowId);
-        return CreatedAtAction(nameof(GetRange), null, createdIds);
+        return RedirectToAction(nameof(GetRange), new { stockHistoryRowIds = createdIds });
     }
 
     [HttpPut]

@@ -42,12 +42,11 @@ public class StockController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<StockDTO>> Create(CreateStockDTO createStockDto)
+    public async Task<ActionResult> Create(CreateStockDTO createStockDto)
     {
         var stock = _mapper.Map<Stock>(createStockDto);
         var createdStock = await _stockService.Create(stock);
-        var createdStockDto = _mapper.Map<StockDTO>(createdStock);
-        return CreatedAtAction(nameof(Get), new { id = createdStockDto.StockId }, createdStockDto);
+        return RedirectToAction(nameof(Get), new { stockId = createdStock.StockId});
     }
 
     [HttpPut]
