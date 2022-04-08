@@ -22,7 +22,7 @@ public class AccountEntityConfiguration : IEntityTypeConfiguration<Account>
         builder.HasIndex(e => e.Title);
 
         builder.HasMany(e => e.Stocks)
-            .WithOne(x => x.Account)
+            .WithOne()
             .HasForeignKey(x => x.AccountId);
     }
 }

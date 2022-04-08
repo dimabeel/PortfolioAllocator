@@ -9,5 +9,4 @@ public class Account
     public IList<Stock> Stocks { get; set; } = new List<Stock>();
 
     public int UserId { get; set; }
-    public User User { get; set; }
 }

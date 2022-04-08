@@ -11,15 +11,15 @@ namespace Allocator.API.Controllers;
 [Produces("application/json")]
 public class UserController : ControllerBase
 {
-    //private readonly ILogger<UserController> _logger;
+    private readonly ILogger<UserController> _logger;
     private readonly IUserService _userService;
     private readonly IMapper _mapper;
 
-    public UserController(IUserService userService, IMapper mapper /*ILogger<UserController> logger*/)
+    public UserController(IUserService userService, IMapper mapper, ILogger<UserController> logger)
     {
         _userService = userService;
         _mapper = mapper;
-        //_logger = logger;
+        _logger = logger;
     }
 
     [Route("/users")]
@@ -28,6 +28,7 @@ public class UserController : ControllerBase
     {
         var users = await _userService.GetAll();
         var usersDto = _mapper.Map<IEnumerable<UserDTO>>(users);
+        _logger.LogInformation("Hi");
         return Ok(usersDto);
     }
 

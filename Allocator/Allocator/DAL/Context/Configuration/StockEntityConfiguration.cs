@@ -18,7 +18,7 @@ public class StockEntityConfiguration : IEntityTypeConfiguration<Stock>
         builder.HasIndex(e => e.Company);
 
         builder.HasMany(e => e.StockHistory)
-            .WithOne(x => x.Stock)
+            .WithOne()
             .HasForeignKey(x => x.StockId);
     }
 }

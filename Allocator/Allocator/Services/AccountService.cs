@@ -16,7 +16,7 @@ public class AccountService : IAccountService
 
     public Task<IEnumerable<Account>> GetAll(int userId)
     {
-        return _unitOfWork.Accounts.Find(x => x.User.Id == userId);
+        return _unitOfWork.Accounts.Find(x => x.UserId == userId);
     }
 
     public async Task<Account> GetBy(int accountId)

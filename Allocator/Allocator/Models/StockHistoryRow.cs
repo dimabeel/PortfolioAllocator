@@ -10,5 +10,4 @@ public class StockHistoryRow
     public decimal Output { get; set; }
 
     public int StockId { get; set; }
-    public Stock Stock { get; set; }
 }

@@ -21,7 +21,7 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder.HasMany(e => e.Accounts)
-            .WithOne(x => x.User)
+            .WithOne()
             .HasForeignKey(x => x.UserId);
     }
 }

@@ -8,5 +8,4 @@ public class Stock
     public IList<StockHistoryRow> StockHistory { get; set; } = new List<StockHistoryRow>();
 
     public int AccountId { get; set; }
-    public Account Account { get; set; }
 }
