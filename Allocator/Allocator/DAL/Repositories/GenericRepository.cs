@@ -32,11 +32,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : SystemEntity
         return result.Entity;
     }
 
-    public void Remove(T entity)
-    {
-        entity.IsDeleted = true;
-        _context.SaveChangesAsync();
-    }
+    public void Remove(T entity) => entity.IsDeleted = true;
 
     public void RemoveRange(IEnumerable<T> entities)
     {
@@ -44,8 +40,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : SystemEntity
         {
             entity.IsDeleted = true;
         }
-
-        _context.SaveChangesAsync();
     }
 
     public T Update(T entity)
