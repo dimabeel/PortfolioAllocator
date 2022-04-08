@@ -1,6 +1,6 @@
 ﻿namespace Allocator.API.Models;
 
-public class User
+public class User : SystemEntity
 {
     public int Id { get; set; }
     public string Name { get; set; } = nameof(Name);

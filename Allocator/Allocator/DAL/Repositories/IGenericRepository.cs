@@ -12,8 +12,6 @@ public interface IGenericRepository<T> where T : class
 
     Task<T> Add(T entity);
 
-    Task AddRange(IEnumerable<T> entities);
-
     void Remove(T entity);
 
     void RemoveRange(IEnumerable<T> entities);

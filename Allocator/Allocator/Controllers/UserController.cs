@@ -28,7 +28,6 @@ public class UserController : ControllerBase
     {
         var users = await _userService.GetAll();
         var usersDto = _mapper.Map<IEnumerable<UserDTO>>(users);
-        _logger.LogInformation("Hi");
         return Ok(usersDto);
     }
 

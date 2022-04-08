@@ -12,15 +12,15 @@ namespace Allocator.API.Controllers;
 [Produces("application/json")]
 public class StockController : ControllerBase
 {
-    //private readonly ILogger<StockController> _logger;
+    private readonly ILogger<StockController> _logger;
     private readonly IStockService _stockService;
     private readonly IMapper _mapper;
 
-    public StockController(IStockService stockService, IMapper mapper /*ILogger<StockController> logger*/)
+    public StockController(IStockService stockService, IMapper mapper, ILogger<StockController> logger)
     {
         _stockService = stockService;
         _mapper = mapper;
-        //_logger = logger;
+        _logger = logger;
     }
 
     [Route("/stocks/{accountId}:int")]

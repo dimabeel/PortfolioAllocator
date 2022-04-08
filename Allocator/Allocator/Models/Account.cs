@@ -1,7 +1,7 @@
 ﻿#pragma warning disable CS8618
 namespace Allocator.API.Models;
 
-public class Account
+public class Account : SystemEntity
 {
     public int AccountId { get; set; }
     public string Title { get; set; } = nameof(Title);

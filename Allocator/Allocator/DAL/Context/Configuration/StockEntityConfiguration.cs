@@ -10,6 +10,7 @@ public class StockEntityConfiguration : IEntityTypeConfiguration<Stock>
     {
         const int companyNameLength = 100;
 
+        builder.HasQueryFilter(x => !x.IsDeleted);
         builder.HasKey(e => e.StockId);
         builder.HasIndex(e => e.StockId);
         builder.Property(e => e.Company)

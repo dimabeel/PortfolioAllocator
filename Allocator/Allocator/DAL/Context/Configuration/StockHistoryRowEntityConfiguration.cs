@@ -10,6 +10,8 @@ public class StockHistoryRowEntityConfiguration : IEntityTypeConfiguration<Stock
     {
         const int precision = 18;
         const int scale = 2;
+
+        builder.HasQueryFilter(x => !x.IsDeleted);
         builder.HasKey(e => e.StockHistoryRowId);
         builder.HasIndex(e => e.StockHistoryRowId);
         builder.Property(e => e.Input).HasPrecision(precision, scale).IsRequired();

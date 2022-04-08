@@ -11,6 +11,7 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
         const int nameLength = 50;
         const int surnameLength = 100;
 
+        builder.HasQueryFilter(x => !x.IsDeleted);
         builder.HasKey(e => e.Id);
         builder.HasIndex(e => e.Id);
         builder.Property(e => e.Name)

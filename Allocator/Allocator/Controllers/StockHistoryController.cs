@@ -12,16 +12,16 @@ namespace Allocator.API.Controllers;
 [Produces("application/json")]
 public class StockHistoryController : ControllerBase
 {
-    //private readonly ILogger<StockHistoryController> _logger;
+    private readonly ILogger<StockHistoryController> _logger;
     private readonly IStockHistoryRowService _stockHistoryRowService;
     private readonly IMapper _mapper;
 
-    public StockHistoryController(IStockHistoryRowService stockHistoryRowService, IMapper mapper
-        /*ILogger<StockHistoryController> logger*/)
+    public StockHistoryController(IStockHistoryRowService stockHistoryRowService, IMapper mapper,
+        ILogger<StockHistoryController> logger)
     {
         _stockHistoryRowService = stockHistoryRowService;
         _mapper = mapper;
-        //_logger = logger;
+        _logger = logger;
     }
 
     [Route("/stock-histories/{stockId}:int")]

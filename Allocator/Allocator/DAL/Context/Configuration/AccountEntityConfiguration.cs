@@ -11,6 +11,7 @@ public class AccountEntityConfiguration : IEntityTypeConfiguration<Account>
         const int currencyLength = 3;
         const int titleLength = 100;
 
+        builder.HasQueryFilter(x => !x.IsDeleted);
         builder.HasKey(e => e.AccountId);
         builder.HasIndex(e => e.AccountId);
         builder.Property(e => e.Currency)

@@ -11,15 +11,15 @@ namespace Allocator.API.Controllers;
 [Produces("application/json")]
 public class AccountController : ControllerBase
 {
-    //private readonly ILogger<AccountController> _logger;
+    private readonly ILogger<AccountController> _logger;
     private readonly IAccountService _accountService;
     private readonly IMapper _mapper;
 
-    public AccountController(IAccountService accountService, IMapper mapper /*ILogger<AccountController> logger*/)
+    public AccountController(IAccountService accountService, IMapper mapper, ILogger<AccountController> logger)
     {
         _accountService = accountService;
         _mapper = mapper;
-        //_logger = logger;
+        _logger = logger;
     }
 
     [Route("/accounts/{userId}:int")]

@@ -1,7 +1,7 @@
 ﻿#pragma warning disable CS8618
 namespace Allocator.API.Models;
 
-public class StockHistoryRow
+public class StockHistoryRow : SystemEntity
 {
     public int StockHistoryRowId { get; set; }
     public decimal Input { get; set; }

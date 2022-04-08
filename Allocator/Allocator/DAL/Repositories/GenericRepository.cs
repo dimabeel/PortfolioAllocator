@@ -1,10 +1,11 @@
 ﻿using System.Linq.Expressions;
 using Allocator.API.DAL.Context;
+using Allocator.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Allocator.API.DAL.Repositories;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+public class GenericRepository<T> : IGenericRepository<T> where T : SystemEntity
 {
     private readonly AllocatorContext _context;
     private readonly DbSet<T> _dbSet;
@@ -31,15 +32,21 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return result.Entity;
     }
 
-    public Task AddRange(IEnumerable<T> entities)
+    public void Remove(T entity)
     {
-        var result = _dbSet.AddRangeAsync(entities);
-        return result;
+        entity.IsDeleted = true;
+        _context.SaveChangesAsync();
     }
 
-    public void Remove(T entity) => _dbSet.Remove(entity);
+    public void RemoveRange(IEnumerable<T> entities)
+    {
+        foreach (var entity in entities)
+        {
+            entity.IsDeleted = true;
+        }
 
-    public void RemoveRange(IEnumerable<T> entities) => _dbSet.RemoveRange(entities);
+        _context.SaveChangesAsync();
+    }
 
     public T Update(T entity)
     {
