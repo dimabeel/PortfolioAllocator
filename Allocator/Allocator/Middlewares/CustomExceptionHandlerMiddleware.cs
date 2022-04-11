@@ -29,7 +29,7 @@ public class CustomExceptionHandlerMiddleware
         catch (Exception e)
         {
             //_logger.LogCritical(e, e.Message);
-            var internalError = new HttpResponseException(500, "Internal Server Error");
+            var internalError = new HttpResponseException(500, "Unexpected error", "Internal Server Error");
             await HandleExceptionAsync(httpContext, internalError);
         }
     }
@@ -41,9 +41,10 @@ public class CustomExceptionHandlerMiddleware
 
         var details = new ErrorDetails()
         {
-            StatusCode = httpContext.Response.StatusCode,
+            Status = httpContext.Response.StatusCode,
             Message = exception.Value,
-
+            TraceId = httpContext.TraceIdentifier,
+            Title = exception.Title
         };
         
         await httpContext.Response.WriteAsync(details.ToString());

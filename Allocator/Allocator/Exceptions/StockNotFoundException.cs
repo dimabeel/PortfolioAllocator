@@ -2,5 +2,6 @@
 
 public sealed class StockNotFoundException : HttpResponseException
 {
-    public StockNotFoundException() : base(StatusCodes.Status404NotFound, "Stock not found") { }
+    public StockNotFoundException() :
+        base(StatusCodes.Status404NotFound, "Validation exception.", "Stock not found.") { }
 }

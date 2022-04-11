@@ -2,5 +2,6 @@
 
 public sealed class UserNotFoundException : HttpResponseException
 {
-    public UserNotFoundException() : base(StatusCodes.Status404NotFound, "User not found") { }
+    public UserNotFoundException() :
+        base(StatusCodes.Status404NotFound, "Validation exception.", "User not found.") { }
 }

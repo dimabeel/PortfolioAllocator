@@ -2,8 +2,14 @@
 
 public class HttpResponseException : Exception
 {
-    public HttpResponseException(int statusCode, object? value = null) =>
-        (StatusCode, Value) = (statusCode, value);
+    public HttpResponseException(int statusCode, string title, object? value = null)
+    {
+        StatusCode = statusCode;
+        Value = value;
+        Title = title;
+    }
+
+    public string Title { get; }
 
     public int StatusCode { get; }
 
