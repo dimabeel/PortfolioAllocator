@@ -7,12 +7,12 @@ namespace Allocator.API.Middlewares;
 public class CustomExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
-    //private readonly ILogger _logger;
+    private readonly ILogger<CustomExceptionHandlerMiddleware> _logger;
 
-    public CustomExceptionHandlerMiddleware(RequestDelegate next/*, ILogger logger*/)
+    public CustomExceptionHandlerMiddleware(RequestDelegate next, ILogger<CustomExceptionHandlerMiddleware> logger)
     {
         _next = next;
-        //_logger = logger;
+        _logger = logger;
     }
 
     public async Task InvokeAsync(HttpContext httpContext)
@@ -23,12 +23,12 @@ public class CustomExceptionHandlerMiddleware
         }
         catch (HttpResponseException e)
         {
-            //_logger.LogError(e, e.Message);
+            _logger.LogError(e, e.Message);
             await HandleExceptionAsync(httpContext, e);
         }
         catch (Exception e)
         {
-            //_logger.LogCritical(e, e.Message);
+            _logger.LogCritical(e, e.Message);
             var internalError = new HttpResponseException(500, "Unexpected error", "Internal Server Error");
             await HandleExceptionAsync(httpContext, internalError);
         }
@@ -46,7 +46,8 @@ public class CustomExceptionHandlerMiddleware
             TraceId = httpContext.TraceIdentifier,
             Title = exception.Title
         };
-        
-        await httpContext.Response.WriteAsync(details.ToString());
+
+        var json = details.ToString();
+        await httpContext.Response.WriteAsync(json);
     }
 }

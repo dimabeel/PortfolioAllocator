@@ -1,47 +1,48 @@
-using System.Reflection;
-using Allocator.API.DAL.Context;
-using Allocator.API.DAL.Repositories;
-using Allocator.API.DAL.UnitOfWork;
 using Allocator.API.Extensions.Middlewares;
 using Allocator.API.Extensions.Services;
-using Allocator.API.Mapping;
-using Allocator.API.Services;
-using Allocator.API.Services.Interfaces;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddAutoMapper(config =>
+try
 {
-    config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-    config.AddProfile(new AssemblyMappingProfile(typeof(AllocatorContext).Assembly));
-});
+    var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DbConnection"));
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+    builder.Host.UseSerilog();
+    builder.Services.AddControllers();
 
-builder.Services.AddScoped(typeof(IUserService), typeof(UserService));
-builder.Services.AddScoped(typeof(IAccountService), typeof(AccountService));
-builder.Services.AddScoped(typeof(IStockService), typeof(StockService));
-builder.Services.AddScoped(typeof(IStockHistoryRowService), typeof(StockHistoryRowService));
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-app.UseHttpsRedirection();
+    builder.Services.AddAutoMapper();
+    builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DbConnection"));
+    builder.Services.AddUnitOfWorkWithRepositories();
+    builder.Services.AddDataAccessServices();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    Log.Logger = new LoggerConfiguration()
+        .ReadFrom.Configuration(builder.Configuration)
+        .CreateLogger();
+
+    var app = builder.Build();
+    app.UseHttpsRedirection();
+
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseSerilogRequestLogging();
+
+    app.UseCustomExceptionMiddleware();
+    app.UseAuthorization();
+    app.MapControllers();
+    app.Run();
 }
-
-app.UseCustomExceptionMiddleware();
-app.UseAuthorization();
-app.MapControllers();
-app.Run();
+catch(Exception ex)
+{
+    Log.Fatal(ex, "The application failed to start correctly.");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
