@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Allocator.API.Controllers;
 
 [ApiController]
-[Route("account")]
+[Route("v{api:apiVersion}/account")]
 [Produces("application/json")]
+[ApiVersion("1.0")]
 public class AccountController : ControllerBase
 {
     private readonly ILogger<AccountController> _logger;
@@ -22,7 +23,7 @@ public class AccountController : ControllerBase
         _logger = logger;
     }
 
-    [Route("/accounts/{userId}:int")]
+    [Route("/v{api:apiVersion}/accounts/{userId}:int")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AccountDTO>>> GetByUser(int userId)
     {
@@ -65,7 +66,7 @@ public class AccountController : ControllerBase
         return NoContent();
     }
 
-    [Route("/accounts")]
+    [Route("/v{api:apiVersion}/accounts")]
     [HttpDelete]
     public async Task<ActionResult> DeleteRange(IEnumerable<int> accountIds)
     {

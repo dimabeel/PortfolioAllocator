@@ -1,4 +1,3 @@
-using Allocator.API.DTO.Account;
 using Allocator.API.DTO.Stock;
 using Allocator.API.Models;
 using Allocator.API.Services.Interfaces;
@@ -8,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Allocator.API.Controllers;
 
 [ApiController]
-[Route("stock")]
+[Route("v{api:apiVersion}/stock")]
 [Produces("application/json")]
+[ApiVersion("1.0")]
 public class StockController : ControllerBase
 {
     private readonly ILogger<StockController> _logger;
@@ -23,7 +23,7 @@ public class StockController : ControllerBase
         _logger = logger;
     }
 
-    [Route("/stocks/{accountId}:int")]
+    [Route("/v{api:apiVersion}/stocks/{accountId}:int")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<StockDTO>>> GetByAccount(int accountId)
     {
@@ -66,7 +66,7 @@ public class StockController : ControllerBase
         return NoContent();
     }
 
-    [Route("/stocks")]
+    [Route("/v{api:apiVersion}/stocks")]
     [HttpDelete]
     public async Task<ActionResult> DeleteRange(IEnumerable<int> stockIds)
     {

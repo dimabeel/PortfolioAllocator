@@ -1,5 +1,6 @@
 using Allocator.API.Extensions.Middlewares;
 using Allocator.API.Extensions.Services;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
 try
@@ -12,6 +13,13 @@ try
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    builder.Services.AddApiVersioning(opt =>
+    {
+        opt.AssumeDefaultVersionWhenUnspecified = true;
+        opt.DefaultApiVersion = ApiVersion.Default;
+        opt.ReportApiVersions = true;
+    });
 
     builder.Services.AddAutoMapper();
     builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DbConnection"));

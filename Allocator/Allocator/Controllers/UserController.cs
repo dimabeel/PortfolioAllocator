@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Allocator.API.Controllers;
 
 [ApiController]
-[Route("user")]
+[Route("v{api:apiVersion}/user")]
 [Produces("application/json")]
+[ApiVersion("1.0")]
 public class UserController : ControllerBase
 {
     private readonly ILogger<UserController> _logger;

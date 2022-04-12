@@ -1,4 +1,3 @@
-using Allocator.API.DTO.Stock;
 using Allocator.API.DTO.StockHistoryRow;
 using Allocator.API.Models;
 using Allocator.API.Services.Interfaces;
@@ -8,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Allocator.API.Controllers;
 
 [ApiController]
-[Route("stock-history")]
+[Route("v{api:apiVersion}/stock-history")]
 [Produces("application/json")]
+[ApiVersion("1.0")]
 public class StockHistoryController : ControllerBase
 {
     private readonly ILogger<StockHistoryController> _logger;
@@ -24,7 +24,7 @@ public class StockHistoryController : ControllerBase
         _logger = logger;
     }
 
-    [Route("/stock-histories/{stockId}:int")]
+    [Route("/v{api:apiVersion}/stock-histories/{stockId}:int")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<StockHistoryRowDTO>>> GetByStock(int stockId)
     {
@@ -33,7 +33,7 @@ public class StockHistoryController : ControllerBase
         return Ok(stockHistoryRowsDto);
     }
 
-    [Route("/stock-histories/")]
+    [Route("/v{api:apiVersion}/stock-histories/")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<StockHistoryRowDTO>>> GetRange([FromQuery]IEnumerable<int> stockHistoryRowIds)
     {
@@ -42,7 +42,7 @@ public class StockHistoryController : ControllerBase
         return Ok(stockHistoryRowsDto);
     }
 
-    [Route("/stock-histories/{stockId}:int/{from}:datetime/{till}:datetime")]
+    [Route("/v{api:apiVersion}/stock-histories/{stockId}:int/{from}:datetime/{till}:datetime")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<StockHistoryRowDTO>>> GetRange(int stockId, DateTime from, DateTime till)
     {
@@ -68,7 +68,7 @@ public class StockHistoryController : ControllerBase
         return RedirectToAction(nameof(Get), new { stockHistoryRowId = createdStockHistoryRow.StockHistoryRowId});
     }
 
-    [Route("/stock-histories")]
+    [Route("/v{api:apiVersion}/stock-histories")]
     [HttpPost]
     public async Task<ActionResult> CreateRange(
         IEnumerable<CreateStockHistoryRowDTO> createStockHistoryRowDtoCollection)
@@ -96,7 +96,7 @@ public class StockHistoryController : ControllerBase
         return NoContent();
     }
 
-    [Route("/stock-histories")]
+    [Route("/v{api:apiVersion}/stock-histories")]
     [HttpDelete]
     public async Task<ActionResult> DeleteRange(IEnumerable<int> stockHistoryRowIds)
     {
